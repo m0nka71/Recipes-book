@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Obiady</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{/styles.css}">
+</head>
+
+<body class="mainBody">
+<h2 class="recipeName">Obiady</h2>
+<img src="https://cdn.galleries.smcloud.net/t/galleries/gf-4Mn2-qTYa-2BMC_mega-szybki-obiad-17-pomyslow-na-obiad-ktory-przygotujesz-w-mniej-niz-pol-godziny-664x442.jpg"
+     class="categoryImg" alt="obiad">
+<p class="text-For-Category">Obiad to dla wielu najbardziej wyczekiwany posiłek w ciągu dnia. Bez niego nie wyobrażamy sobie pełnowartościowej diety,
+    która powinna być bogata w witaminy i minerały. A ich nigdy nie brakuje w potrawach, które są podstawą dziennego menu.</p>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            <h3></h3>
+        </th>
+        <th>
+            <h3>Nazwa</h3>
+        </th>
+    </tr>
+    <tbody>
+    <tr th:each="recipe: ${lunch}">
+        <td class="tdForImg">
+            <img th:src="|/images/${recipe.img}|" class="homeImages" alt=""/>
+        </td>
+        <td>
+            <a th:href="|/recipe/${recipe.id}|" th:text="${recipe.name}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

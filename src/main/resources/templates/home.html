@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Strona główna</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{/styles.css}">
+</head>
+
+<body class="mainBody">
+
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <h1 class="navbar-brand">Pyszne przepisy!</h1>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupported">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/breakfast}">Śniadania</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/lunch}">Obiady</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/dinner}">Kolacje</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/snack}">Przekąski</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/dessert}">Desery</a>
+            </li>
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto topnav">
+            <li class="nav-item">
+                <a href="/add" class="btn btn-primary">Dodaj nowy przepis</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>
+            <h3></h3>
+        </th>
+        <th>
+            <h3 class="titleInTable">Nazwa</h3>
+        </th>
+        <th>
+            <h3 class="titleInTable">Kategoria</h3>
+        </th>
+    </tr>
+    <tbody class="t-body">
+    <tr th:each="recipe: ${recipes}">
+        <td class="tdForImg">
+            <img th:src="|/images/${recipe.img}|" class="homeImages" alt=""/>
+        </td>
+        <td class="textInMain">
+            <a th:href="|/recipe/${recipe.id}|" th:text="${recipe.name}">
+            </a></td>
+        <td class="textInMain" th:text="${recipe.category.text}"></td>
+        <td>
+            <a th:href="|/recipe/${recipe.id}/edit|" class="btn btn-primary">Edytuj</a>
+            <!--            <form th:action="@{/delete-recipe/${recipe.id}(id=${recipe.id})}">-->
+            <a th:href="@{/delete-recipe/${recipe.id}(id=${recipe.id})}" class="btn btn-danger">Usuń</a>
+            <!--            </form>-->
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>
