@@ -34,7 +34,7 @@
         <div>
             <select class="form-control" id="inputCategory" th:field="*{category}">
                 <option disabled selected value="">Wybierz...</option>
-                <option th:each="cat: ${T(com.example.recipes.RecipeCategory).values()}"
+                <option th:each="cat: ${T(com.example.recipes.category.CategoryType).values()}"
                         th:text="${cat.text}" th:value="${cat.name()}">
                 </option>
             </select>

@@ -1,15 +1,22 @@
-package com.example.recipes;
+package com.example.recipes.category;
 
-public enum RecipeCategory {
+public enum CategoryType {
     BREAKFAST("Śniadanie"),
+
     LUNCH("Obiad"),
+
     DINNER("Kolacja"),
+
     SNACK("Przekąska"),
+
     DESSERT("Deser");
+
     private final String text;
-    RecipeCategory(String text) {
+
+    CategoryType(String text) {
         this.text = text;
     }
+
     public String getText() {
         return text;
     }

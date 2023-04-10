@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,17 +49,28 @@ public class RecipeController {
             return "redirect:/";
         }
     }
-    @GetMapping("/recipe/{id}/edit")
-    public String editRecipeForm(@PathVariable Long id, Model model) {
+//    Jedna metoda dla edit + add
+    @GetMapping("/recipe/{id}/form")
+    public String editRecipeForm(@RequestParam String mode, @PathVariable Long id, Model model) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
         if (recipeOptional.isPresent()) {
             Recipe recipe = recipeOptional.get();
-            model.addAttribute("recipeToEdit", recipe);
-            return "edit";
+            model.addAttribute("recipeForm", recipe);
+            model.addAttribute("mode", "edit");
+            model.addAttribute("mode", "add");
+            return "recipeForm";
         } else {
             return "redirect:/";
         }
+
+//        if (mode.equals("edit")) {
+//            return "recipeForm";
+//        } else if (mode.equals("add")) {
+//            model.addAttribute("recipe", new Recipe());
+//            return "";
+//        }
     }
+
     @PostMapping("/recipe/{id}/edit")
     public String editRecipe(Recipe recipe) {
         recipeRepository.save(recipe);
@@ -71,4 +83,14 @@ public class RecipeController {
         recipeRepository.delete(recipe);
         return "redirect:/";
     }
+//
+//    @GetMapping("/recipe/${id}/${likes}")
+//    public String showLikes(Model model, @PathVariable Long id, @PathVariable int likes) {
+//        //TO DO
+//
+//        likes++;
+//        model.addAttribute("likes", likes);
+//        return "recipe";
+//    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.recipes;
 
+import com.example.recipes.category.Category;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,16 +8,26 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private String directions;
+
     private String time;
+
     private String ingredients;
-    @Enumerated(EnumType.STRING)
-    private RecipeCategory category;
+
+    @ManyToOne
+    private Category category;
+
     private String img;
+
+//    private int likes;
+
     public Recipe() {
     }
-    public Recipe(Long id, String name, String directions, String time, String ingredients, RecipeCategory category, String img) {
+
+    public Recipe(Long id, String name, String directions, String time, String ingredients, Category category, String img) {
         this.id = id;
         this.name = name;
         this.directions = directions;
@@ -66,12 +77,12 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public RecipeCategory getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(RecipeCategory type) {
-        this.category = type;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getImg() {
@@ -81,4 +92,12 @@ public class Recipe {
     public void setImg(String img) {
         this.img = img;
     }
+
+//    public int getLikes() {
+//        return likes;
+//    }
+//
+//    public void setLikes(int likes) {
+//        this.likes = likes;
+//    }
 }

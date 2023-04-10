@@ -18,27 +18,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupported">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/breakfast}">Śniadania</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/lunch}">Obiady</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/dinner}">Kolacje</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/snack}">Przekąski</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/dessert}">Desery</a>
+            <li class="nav-item active" th:each="category : ${T(com.example.recipes.category.CategoryType).values()}">
+                <a class="nav-link" th:href="|/category/${category.name()}|" th:text="${category.text}"></a>
             </li>
         </ul>
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto topnav">
             <li class="nav-item">
-                <a href="/add" class="btn btn-primary">Dodaj nowy przepis</a>
+                <a href="/recipeForm" class="btn btn-primary">Dodaj nowy przepis</a>
             </li>
         </ul>
     </div>
@@ -65,12 +53,12 @@
         <td class="textInMain">
             <a th:href="|/recipe/${recipe.id}|" th:text="${recipe.name}">
             </a></td>
-        <td class="textInMain" th:text="${recipe.category.text}"></td>
+        <td class="textInMain" th:text="${recipe.category.type.text}"></td>
         <td>
-            <a th:href="|/recipe/${recipe.id}/edit|" class="btn btn-primary">Edytuj</a>
-            <!--            <form th:action="@{/delete-recipe/${recipe.id}(id=${recipe.id})}">-->
-            <a th:href="@{/delete-recipe/${recipe.id}(id=${recipe.id})}" class="btn btn-danger">Usuń</a>
-            <!--            </form>-->
+            <a th:href="|/recipe/${recipe.id}/form|" class="btn btn-primary">Edytuj</a>
+              <form th:action="@{|/delete-recipe/${recipe.id}|}">
+                <button class="btn btn-danger">Usuń</button>
+              </form>
         </td>
     </tr>
     </tbody>

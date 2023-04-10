@@ -7,20 +7,21 @@
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/styles.css" th:href="@{/styles.css}">
 
-    <script type="text/javascript">
+<!--    <script type="text/javascript">-->
 
-        var clicks = 0;
+<!--        var clicks = 0;-->
 
-        function likes() {
-            clicks += 1;
-            document.getElementById("clicks").innerHTML = clicks;
-        }
-    </script>
+<!--        function likes() {-->
+<!--            clicks += 1;-->
+<!--            document.getElementById("clicks").innerHTML = clicks;-->
+<!--        }-->
+<!--    </script>-->
 </head>
 
 <body class="mainBody">
 <h2 th:text="${recipeShow.name}" class="recipeName"></h2>
 <div class="recipeDiv">
+<!--    Nie będzie działać dla zdjęć juz w folderze po zapisie:  th:src="|images${recipeShow.img}|-->
     <img th:src="|/images/${recipeShow.img}|" class="recipeImage" alt="przepis"/>
     <table class="table">
         <thead class="t-Recipe">
@@ -35,14 +36,15 @@
             <tr>
                 <td><span th:text="${recipeShow.time}"></span></td>
                 <td><span th:text="${recipeShow.ingredients}"></span></td>
-                <td><span th:text="${recipeShow.category.text}"></span></td>
+                <td><span th:text="${recipeShow.category.type.text}"></span></td>
                 <td><span th:text="${recipeShow.directions}"></span></td>
             </tr>
         </tbody>
     </table>
     <label id="count"></label><br><br>
-    <button onClick="likes()" class="btn btn-primary like-button">Lubię to!</button>
-    <p>Liczba polubień: <a id="clicks">0</a></p>
+<!--    <a href="/recipe/${recipeShow.id}/${recipeShow.likes}" class="btn btn-primary like-button"></a>-->
+<!--    <p th:text="'Liczba polubień' ${recipeShow.likes}">0</p>-->
+
 </div>
 </body>
 <footer th:replace="~{fragments :: footer}"></footer>

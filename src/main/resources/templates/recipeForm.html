@@ -7,11 +7,13 @@
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/styles.css" th:href="@{/styles.css}">
 </head>
-
-<h2 class="titleIn">Edycja przepisu</h2>
+<body>
+<h2 class="titleIn" th:if="${mode == 'edit'}">Edycja przepisu</h2>
+<h2 class="titleIn" th:if="${mode == 'add'}">Dodawanie nowego przepisu</h2>
 
 <div class="editForm-img">
-    <form th:action="|/recipe/${recipeToEdit.id}/edit|" method="post" th:object="${recipeToEdit}" class="containerForm">
+    <form th:action="${mode} == 'edit' ? @{/recipe/${recipe.id}/form/edit} : @{/recipe/${recipe.id}/form/add}" method="post" th:object="${recipeForm}" class="containerForm">
+<!--    <form th:if="${mode == 'add'}" th:action="@{/add}" method="post" th:object="${recipeForm}" class="containerForm">-->
         <div class="form-group">
             <label for="recipeName">Nazwa</label>
             <input type="text" class="form-control" id="recipeName" th:field="*{name}">
@@ -33,7 +35,7 @@
             <div>
                 <select class="form-control" id="inputCategory" th:field="*{category}">
                     <option disabled selected value="">Wybierz...</option>
-                    <option th:each="cat: ${T(com.example.recipes.RecipeCategory).values()}"
+                    <option th:each="cat: ${T(com.example.recipes.category.CategoryType).values()}"
                             th:text="${cat.text}" th:value="${cat.name()}">
                     </option>
                 </select>
@@ -50,6 +52,6 @@
         </div>
     </form>
 </div>
-</body>
 <footer th:replace="~{fragments :: footer}"></footer>
+</body>
 </html>
