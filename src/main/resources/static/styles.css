@@ -1,7 +1,7 @@
 .mainH2 {
     text-align: left;
     padding: 30px;
-    background-color: navy;
+    background-color: #212529;
     color: white;
 }
 
@@ -11,12 +11,12 @@
 }
 
 .navbar-custom {
-    background-color: navy;
+    background-color: #212529;
     color: white;
 }
 
 footer {
-    background-color: navy;
+    background-color: #212529;
     width: 100%;
     flex-direction: column;
     text-align: center;
@@ -64,7 +64,7 @@ footer {
 
 .titleIn {
     text-align: center;
-    background-color: navy;;
+    background-color: #212529;;
     margin: 1px;
     padding: 30px;
     color: white;
@@ -86,7 +86,7 @@ footer {
 }
 
 .mainBody {
-    background-color: rgba(255,19,198,0.27);
+    background-color: white;
 }
 
 .text-For-Category {
@@ -105,7 +105,11 @@ footer {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
+    width: 420px;
+}
+
+.categoryText {
+    font-size: 30px;
 }
 
 .tdForImg {
@@ -127,10 +131,16 @@ footer {
 
 .recipeName {
     text-align: center;
-    background-color: navy;
+    background-color: #212529;
     color: white;
     padding: 50px;
     margin: 0;
+}
+
+.linkToHomePage {
+    background-color: #212529;
+    margin: 0;
+    width: 100%;
 }
 
 .recipeDiv {

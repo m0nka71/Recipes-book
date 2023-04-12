@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Śniadania</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/styles.css" th:href="@{/styles.css}">
+    <title>Kategoria</title>
 </head>
-<body class="mainBody" th:each="recipe: ${recipes}">
-<h2 class="recipeName" th:text="${recipe.category.type.text}"></h2>
-<img th:scr="|/images/${recipe.category.categoryImg}|" class="categoryImg" alt="kategorie">
-<p class="text-For-Category" th:text="${recipe.category.description}"></p>
+<body class="mainBody" th:each="category: ${categories}" layout:fragment="content">
+<div class="linkToHomePage">
+    <a href="/">Powrót do strony głównej</a>
+</div>
+
+<h2 th:text="${category.name}" class="recipeName"></h2>
+<img th:src="|${category.img}|" class="categoryImg" alt="kategorie">
+<p class="text-For-Category" th:text="${category.description}"></p>
 
 <table class="table">
     <thead>
@@ -19,15 +21,15 @@
             <h3></h3>
         </th>
         <th>
-            <h3>Nazwa</h3>
+            <h3 class="categoryText">Nazwa</h3>
         </th>
     </tr>
     <tbody>
-    <tr>
+    <tr th:each="recipe: ${recipes}">
         <td class="tdForImg">
-            <img th:src="|/images/${recipe.img}|" class="homeImages" alt=""/>
+            <img th:src="|${recipe.img}|" class="homeImages" alt=""/>
         </td>
-        <td>
+        <td class="categoryText">
             <a th:href="|/recipe/${recipe.id}|" th:text="${recipe.name}"></a>
         </td>
     </tr>

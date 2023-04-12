@@ -11,16 +11,21 @@ import java.util.List;
 
 @Controller
 public class RecipeCategoryController {
+
     private final RecipeRepository recipeRepository;
 
-    public RecipeCategoryController(RecipeRepository recipeRepository) {
+    private final CategoryRepository categoryRepository;
+
+    public RecipeCategoryController(RecipeRepository recipeRepository, CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
+        this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping("/category/{categoryType}")
-    public String showRecipesByCategory(Model model, @PathVariable CategoryType categoryType) {
-        List<Recipe> recipes;
-        recipes = recipeRepository.findAllByCategoryType(categoryType);
+    @GetMapping("/category/{name}")
+    public String showRecipesByCategory(Model model, @PathVariable String name) {
+        List<Category> categories = categoryRepository.findAllByName(name);
+        List<Recipe> recipes = recipeRepository.findAllByCategoryName(name);
+        model.addAttribute("categories", categories);
         model.addAttribute("recipes", recipes);
         return "category";
     }

@@ -1,28 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
     <title>Przepis</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/styles.css" th:href="@{/styles.css}">
-
-<!--    <script type="text/javascript">-->
-
-<!--        var clicks = 0;-->
-
-<!--        function likes() {-->
-<!--            clicks += 1;-->
-<!--            document.getElementById("clicks").innerHTML = clicks;-->
-<!--        }-->
-<!--    </script>-->
 </head>
 
-<body class="mainBody">
-<h2 th:text="${recipeShow.name}" class="recipeName"></h2>
+<body class="mainBody" layout:fragment="content">
+<div class="linkToHomePage">
+    <a href="/">Powrót do strony głównej</a>
+</div>
+<h2 th:text="${recipe.name}" class="recipeName"></h2>
 <div class="recipeDiv">
-<!--    Nie będzie działać dla zdjęć juz w folderze po zapisie:  th:src="|images${recipeShow.img}|-->
-    <img th:src="|/images/${recipeShow.img}|" class="recipeImage" alt="przepis"/>
+    <img th:src="|${recipe.img}|" class="recipeImage" alt="przepis"/>
     <table class="table">
         <thead class="t-Recipe">
         <tr>
@@ -34,16 +24,16 @@
         </thead>
         <tbody class="t-Recipe">
             <tr>
-                <td><span th:text="${recipeShow.time}"></span></td>
-                <td><span th:text="${recipeShow.ingredients}"></span></td>
-                <td><span th:text="${recipeShow.category.type.text}"></span></td>
-                <td><span th:text="${recipeShow.directions}"></span></td>
+                <td><span th:text="${recipe.time}"></span></td>
+                <td><span th:text="${recipe.ingredients}"></span></td>
+                <td><span th:text="${recipe.category.name}"></span></td>
+                <td><span th:text="${recipe.directions}"></span></td>
             </tr>
         </tbody>
     </table>
     <label id="count"></label><br><br>
-<!--    <a href="/recipe/${recipeShow.id}/${recipeShow.likes}" class="btn btn-primary like-button"></a>-->
-<!--    <p th:text="'Liczba polubień' ${recipeShow.likes}">0</p>-->
+<!--    <a th:href="/recipe/${recipe.id}/${recipe.likes}" class="btn btn-primary like-button"></a>-->
+<!--    <p th:text="'Liczba polubień' ${recipe.likes}">0</p>-->
 
 </div>
 </body>

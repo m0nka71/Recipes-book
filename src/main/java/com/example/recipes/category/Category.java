@@ -8,14 +8,21 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private CategoryType type;
+    private String name;
 
     private String description;
 
-    private String categoryImg;
+    private String img;
 
     public Category() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -26,15 +33,6 @@ public class Category {
         this.id = id;
     }
 
-
-    public CategoryType getType() {
-        return type;
-    }
-
-    public void setType(CategoryType type) {
-        this.type = type;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -43,11 +41,11 @@ public class Category {
         this.description = description;
     }
 
-    public String getCategoryImg() {
-        return categoryImg;
+    public String getImg() {
+        return img;
     }
 
-    public void setCategoryImg(String img) {
-        this.categoryImg = img;
+    public void setImg(String img) {
+        this.img = img;
     }
 }

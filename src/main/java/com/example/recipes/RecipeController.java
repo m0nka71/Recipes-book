@@ -1,12 +1,12 @@
 package com.example.recipes;
 
+import com.example.recipes.category.Category;
+import com.example.recipes.category.CategoryRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,27 +15,20 @@ public class RecipeController {
 
     private final RecipeRepository recipeRepository;
 
-    public RecipeController(RecipeRepository recipeRepository) {
+    private final CategoryRepository categoryRepository;
+
+    public RecipeController(RecipeRepository recipeRepository, CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/")
     public String home(Model model) {
         List<Recipe> recipes = recipeRepository.findAll();
         model.addAttribute("recipes", recipes);
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("category", categories);
         return "home";
-    }
-
-    @GetMapping("/add")
-    public String addForm(Model model) {
-        model.addAttribute("recipe", new Recipe());
-        return "add";
-    }
-
-    @PostMapping("/add")
-    public String add(Recipe recipe) {
-        recipeRepository.save(recipe);
-        return "redirect:/";
     }
 
     @GetMapping("/recipe/{id}")
@@ -43,35 +36,34 @@ public class RecipeController {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
         if (recipeOptional.isPresent()) {
             Recipe recipe = recipeOptional.get();
-            model.addAttribute("recipeShow", recipe);
+            model.addAttribute("recipe", recipe);
             return "recipe";
         } else {
             return "redirect:/";
         }
     }
-//    Jedna metoda dla edit + add
-    @GetMapping("/recipe/{id}/form")
-    public String editRecipeForm(@RequestParam String mode, @PathVariable Long id, Model model) {
+
+    @GetMapping("/recipe/add")
+    public String addRecipeForm(Model model) {
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("category", categories);
+        model.addAttribute("recipe", new Recipe());
+        return "recipeForm";
+    }
+
+    @GetMapping("/recipe/edit/{id}")
+    public String editRecipeForm(@PathVariable Long id, Model model) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
         if (recipeOptional.isPresent()) {
             Recipe recipe = recipeOptional.get();
-            model.addAttribute("recipeForm", recipe);
-            model.addAttribute("mode", "edit");
-            model.addAttribute("mode", "add");
+            model.addAttribute("recipe", recipe);
             return "recipeForm";
         } else {
             return "redirect:/";
         }
-
-//        if (mode.equals("edit")) {
-//            return "recipeForm";
-//        } else if (mode.equals("add")) {
-//            model.addAttribute("recipe", new Recipe());
-//            return "";
-//        }
     }
 
-    @PostMapping("/recipe/{id}/edit")
+    @PostMapping("/recipe/save")
     public String editRecipe(Recipe recipe) {
         recipeRepository.save(recipe);
         return "redirect:/recipe/" + recipe.getId();
@@ -83,13 +75,13 @@ public class RecipeController {
         recipeRepository.delete(recipe);
         return "redirect:/";
     }
-//
-//    @GetMapping("/recipe/${id}/${likes}")
-//    public String showLikes(Model model, @PathVariable Long id, @PathVariable int likes) {
-//        //TO DO
-//
-//        likes++;
-//        model.addAttribute("likes", likes);
+
+//    @GetMapping("/recipe/like")
+//    public String showLikes(Model model, @PathVariable Long id, @PathVariable int like) {
+//        Recipe recipe = recipeRepository.findById(id).orElseThrow();
+//        int likes1 = recipe.getLikes();
+//        likes1 = like++;
+//        model.addAttribute("likes", likes1);
 //        return "recipe";
 //    }
 

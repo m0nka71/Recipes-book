@@ -1,32 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Strona główna</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/styles.css" th:href="@{/styles.css}">
-</head>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body class="mainBody" layout:fragment="content">
 
-<body class="mainBody">
-
-<nav class="navbar navbar-expand-lg navbar-custom">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <h1 class="navbar-brand">Pyszne przepisy!</h1>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupported">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active" th:each="category : ${T(com.example.recipes.category.CategoryType).values()}">
-                <a class="nav-link" th:href="|/category/${category.name()}|" th:text="${category.text}"></a>
-            </li>
-        </ul>
-    </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto topnav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active" th:each="cat : ${category}">
+                <a class="nav-link" th:href="|/category/${cat.name}|" th:text="${cat.name}"></a>
+            </li>
             <li class="nav-item">
-                <a href="/recipeForm" class="btn btn-primary">Dodaj nowy przepis</a>
+            <a th:href="@{/recipe/add}" class="btn btn-primary">Dodaj nowy przepis</a>
             </li>
         </ul>
     </div>
@@ -48,14 +38,14 @@
     <tbody class="t-body">
     <tr th:each="recipe: ${recipes}">
         <td class="tdForImg">
-            <img th:src="|/images/${recipe.img}|" class="homeImages" alt=""/>
+            <img th:src="|${recipe.img}|" class="homeImages" alt=""/>
         </td>
         <td class="textInMain">
             <a th:href="|/recipe/${recipe.id}|" th:text="${recipe.name}">
             </a></td>
-        <td class="textInMain" th:text="${recipe.category.type.text}"></td>
+        <td class="textInMain" th:text="${recipe.category.name}"></td>
         <td>
-            <a th:href="|/recipe/${recipe.id}/form|" class="btn btn-primary">Edytuj</a>
+            <a th:href="|/recipe/edit/${recipe.id}|" class="btn btn-primary">Edytuj</a>
               <form th:action="@{|/delete-recipe/${recipe.id}|}">
                 <button class="btn btn-danger">Usuń</button>
               </form>

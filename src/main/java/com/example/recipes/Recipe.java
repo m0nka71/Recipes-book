@@ -22,12 +22,13 @@ public class Recipe {
 
     private String img;
 
-//    private int likes;
+    private int likes;
 
     public Recipe() {
     }
 
-    public Recipe(Long id, String name, String directions, String time, String ingredients, Category category, String img) {
+    public Recipe(Long id, String name, String directions, String time,
+           String ingredients, Category category, String img, int likes) {
         this.id = id;
         this.name = name;
         this.directions = directions;
@@ -35,6 +36,7 @@ public class Recipe {
         this.ingredients = ingredients;
         this.category = category;
         this.img = img;
+        this.likes = likes;
     }
 
     public Long getId() {
@@ -93,11 +95,11 @@ public class Recipe {
         this.img = img;
     }
 
-//    public int getLikes() {
-//        return likes;
-//    }
-//
-//    public void setLikes(int likes) {
-//        this.likes = likes;
-//    }
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 }
