@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>
+                <h3></h3>
+            </th>
+            <th>
+                <h3 class="titleInTable">Nazwa</h3>
+            </th>
+            <th>
+                <h3 class="titleInTable">Kategoria</h3>
+            </th>
+        </tr>
+        <tbody class="t-body">
+        <tr th:each="recipe: ${recipes}">
+            <td class="tdForImg">
+                <img th:src="|${recipe.img}|" class="homeImages" alt=""/>
+            </td>
+            <td class="textInMain">
+                <a th:href="|/recipe/${recipe.id}|" th:text="${recipe.name}">
+                </a></td>
+            <td class="textInMain" th:text="${recipe.category.name}"></td>
+<!--            <td>-->
+<!--                <a th:href="|/recipe/edit/${recipe.id}|" class="btn btn-primary">Edytuj</a>-->
+<!--                <form th:action="@{|/delete-recipe/${recipe.id}|}">-->
+<!--                    <button class="btn btn-danger">Usuń</button>-->
+<!--                </form>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
