@@ -6,36 +6,40 @@
     <title>Przepis</title>
 </head>
 
-<body class="mainBody" layout:fragment="content">
-<div class="linkToHomePage">
-    <a href="/">Powrót do strony głównej</a>
-</div>
-<h2 th:text="${recipe.name}" class="recipeName"></h2>
-<div class="recipeDiv">
-    <img th:src="|${recipe.img}|" class="recipeImage" alt="przepis"/>
-    <table class="table">
-        <thead class="t-Recipe">
-        <tr>
-            <th scope="col">Czas przygotowania</th>
-            <th scope="col">Składniki</th>
-            <th scope="col">Kategoria</th>
-            <th scope="col">Sposób przygotowania</th>
-        </tr>
-        </thead>
-        <tbody class="t-Recipe">
+<body>
+<div layout:fragment="content">
+    <h2 th:text="${recipe.name}" class="recipeName"></h2>
+    <div class="recipeDiv">
+        <img th:src="|${recipe.img}|" class="recipeImage" alt="przepis"/>
+        <table class="table">
+            <thead class="t-Recipe">
+            <tr>
+                <th scope="col">Czas przygotowania</th>
+                <th scope="col">Składniki</th>
+                <th scope="col">Kategoria</th>
+                <th scope="col">Sposób przygotowania</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody class="t-Recipe">
             <tr>
                 <td><span th:text="${recipe.time}"></span></td>
                 <td><span th:text="${recipe.ingredients}"></span></td>
                 <td><span th:text="${recipe.category.name}"></span></td>
                 <td><span th:text="${recipe.directions}"></span></td>
+                <td>
+                    <a th:href="|/recipe/edit/${recipe.id}|" class="btn btn-primary">Edytuj</a>
+                    <form th:action="@{|/delete-recipe/${recipe.id}|}">
+                        <button class="btn btn-danger">Usuń</button>
+                    </form>
+                </td>
             </tr>
-        </tbody>
-    </table>
-    <label id="count"></label><br><br>
-<!--    <a th:href="/recipe/${recipe.id}/${recipe.likes}" class="btn btn-primary like-button"></a>-->
-<!--    <p th:text="'Liczba polubień' ${recipe.likes}">0</p>-->
-
+            </tbody>
+        </table>
+        <label id="count">
+            <a th:href="|/recipe/${recipe.id}/likes|" class="btn btn-primary like-button">Liczba polubień: <p th:text="${recipe.likes}">0</p></a>
+        </label>
+    </div>
 </div>
 </body>
-<footer th:replace="~{fragments :: footer}"></footer>
 </html>

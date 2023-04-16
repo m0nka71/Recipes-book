@@ -5,8 +5,10 @@ import com.example.recipes.category.CategoryRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +24,15 @@ public class RecipeController {
         this.categoryRepository = categoryRepository;
     }
 
+    @ModelAttribute
+    void setCategories(Model model) {
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
+    }
+
     @GetMapping("/")
     public String home(Model model) {
-        List<Recipe> recipes = recipeRepository.findAll();
-        model.addAttribute("recipes", recipes);
-        List<Category> categories = categoryRepository.findAll();
-        model.addAttribute("category", categories);
+        model.addAttribute("recipes", recipeRepository.findAll());
         return "home";
     }
 
@@ -45,8 +50,6 @@ public class RecipeController {
 
     @GetMapping("/recipe/add")
     public String addRecipeForm(Model model) {
-        List<Category> categories = categoryRepository.findAll();
-        model.addAttribute("category", categories);
         model.addAttribute("recipe", new Recipe());
         return "recipeForm";
     }
@@ -76,13 +79,13 @@ public class RecipeController {
         return "redirect:/";
     }
 
-//    @GetMapping("/recipe/like")
-//    public String showLikes(Model model, @PathVariable Long id, @PathVariable int like) {
-//        Recipe recipe = recipeRepository.findById(id).orElseThrow();
-//        int likes1 = recipe.getLikes();
-//        likes1 = like++;
-//        model.addAttribute("likes", likes1);
-//        return "recipe";
-//    }
-
+    @GetMapping("/recipe/{id}/likes")
+    public String showLikes(Model model, @PathVariable Long id, @PathVariable int likes) {
+        Recipe recipe = recipeRepository.findById(id).orElseThrow();
+        recipe.setLikes(recipe.getLikes() + 1);
+        Recipe save = recipeRepository.save(recipe);
+        likes = save.getLikes();
+        model.addAttribute("likes", likes);
+        return "redirect:/recipe";
+    }
 }

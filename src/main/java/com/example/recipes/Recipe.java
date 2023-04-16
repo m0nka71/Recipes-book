@@ -102,4 +102,8 @@ public class Recipe {
     public void setLikes(int likes) {
         this.likes = likes;
     }
+
+    int increaseLikes() {
+        return likes++;
+    }
 }

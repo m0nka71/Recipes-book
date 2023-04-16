@@ -2,58 +2,40 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
-<body class="mainBody" layout:fragment="content">
+<body>
+<div layout:fragment="content">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>
+                <h3></h3>
+            </th>
+            <th>
+                <h3 class="titleInTable">Nazwa</h3>
+            </th>
+            <th>
+                <h3 class="titleInTable">Kategoria</h3>
+            </th>
+        </tr>
+        <tbody class="t-body">
+        <tr th:each="recipe: ${recipes}">
+            <td class="tdForImg">
+                <img th:src="|${recipe.img}|" class="homeImages" alt=""/>
+            </td>
+            <td class="textInMain">
+                <a th:href="|/recipe/${recipe.id}|" th:text="${recipe.name}">
+                </a></td>
+            <td class="textInMain" th:text="${recipe.category.name}"></td>
+<!--            <td>-->
+<!--                <a th:href="|/recipe/edit/${recipe.id}|" class="btn btn-primary">Edytuj</a>-->
+<!--                <form th:action="@{|/delete-recipe/${recipe.id}|}">-->
+<!--                    <button class="btn btn-danger">Usuń</button>-->
+<!--                </form>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <h1 class="navbar-brand">Pyszne przepisy!</h1>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active" th:each="cat : ${category}">
-                <a class="nav-link" th:href="|/category/${cat.name}|" th:text="${cat.name}"></a>
-            </li>
-            <li class="nav-item">
-            <a th:href="@{/recipe/add}" class="btn btn-primary">Dodaj nowy przepis</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>
-            <h3></h3>
-        </th>
-        <th>
-            <h3 class="titleInTable">Nazwa</h3>
-        </th>
-        <th>
-            <h3 class="titleInTable">Kategoria</h3>
-        </th>
-    </tr>
-    <tbody class="t-body">
-    <tr th:each="recipe: ${recipes}">
-        <td class="tdForImg">
-            <img th:src="|${recipe.img}|" class="homeImages" alt=""/>
-        </td>
-        <td class="textInMain">
-            <a th:href="|/recipe/${recipe.id}|" th:text="${recipe.name}">
-            </a></td>
-        <td class="textInMain" th:text="${recipe.category.name}"></td>
-        <td>
-            <a th:href="|/recipe/edit/${recipe.id}|" class="btn btn-primary">Edytuj</a>
-              <form th:action="@{|/delete-recipe/${recipe.id}|}">
-                <button class="btn btn-danger">Usuń</button>
-              </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<footer th:replace="~{fragments :: footer}"></footer>
 </body>
 </html>

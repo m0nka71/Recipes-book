@@ -65,7 +65,7 @@ footer {
 .titleIn {
     text-align: center;
     background-color: #212529;;
-    margin: 1px;
+    margin: 0;
     padding: 30px;
     color: white;
 }
@@ -83,10 +83,6 @@ footer {
 
 .titleInTable {
     text-align: center;
-}
-
-.mainBody {
-    background-color: white;
 }
 
 .text-For-Category {

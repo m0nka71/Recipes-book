@@ -109,7 +109,7 @@ VALUES
      'https://staticsmaker.iplsc.com/smaker_prod_2021_10_06/2cc9f03b97a3019b6f5efaa28552ec0d-recipe_main.jpg'),
     ('Przekąska', 'Szybkie przekąski są niezastąpione podczas imprez, takich jak urodziny, imieniny, sylwester czy przyjęcia świąteczne.
     Sprawdzają się także jako małe co nieco do podjadania w ciągu dnia.',
-     'https://szefsmaku.pl/wp-content/uploads/2019/12/przekaski-1250x712.jpg'),
+     'https://static.aniaradzi.pl/media/uploads/media_image/auto/entry-content/1352/desktop/przekaski-na-impreze.jpg'),
     ('Deser', 'Leniwe popołudnie to jedna z ulubionych pór dnia łasuchów. To właśnie wtedy przychodzi czas
     na długo wyczekiwany po obiedzie deser, który może mieć przecież tak wiele postaci!',
      'https://polki.pl/foto/4_3_LARGE/idealny-tort-bezowy-zobacz-prosty-przepis-na-ten-pyszny-deser-2447398.webp');

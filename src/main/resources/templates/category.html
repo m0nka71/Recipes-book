@@ -5,37 +5,34 @@
 <head>
     <title>Kategoria</title>
 </head>
-<body class="mainBody" th:each="category: ${categories}" layout:fragment="content">
-<div class="linkToHomePage">
-    <a href="/">Powrót do strony głównej</a>
+<body>
+<div layout:fragment="content">
+    <div>
+        <h2 th:text="${category.name}" class="recipeName"></h2>
+        <img th:src="|${category.img}|" class="categoryImg" alt="kategorie">
+        <p class="text-For-Category" th:text="${category.description}"></p>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <h3></h3>
+            </th>
+            <th>
+                <h3 class="categoryText">Nazwa</h3>
+            </th>
+        </tr>
+        <tbody>
+        <tr th:each="recipe: ${recipes}">
+            <td class="tdForImg">
+                <img th:src="|${recipe.img}|" class="homeImages" alt=""/>
+            </td>
+            <td class="categoryText">
+                <a th:href="|/recipe/${recipe.id}|" th:text="${recipe.name}"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-
-<h2 th:text="${category.name}" class="recipeName"></h2>
-<img th:src="|${category.img}|" class="categoryImg" alt="kategorie">
-<p class="text-For-Category" th:text="${category.description}"></p>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            <h3></h3>
-        </th>
-        <th>
-            <h3 class="categoryText">Nazwa</h3>
-        </th>
-    </tr>
-    <tbody>
-    <tr th:each="recipe: ${recipes}">
-        <td class="tdForImg">
-            <img th:src="|${recipe.img}|" class="homeImages" alt=""/>
-        </td>
-        <td class="categoryText">
-            <a th:href="|/recipe/${recipe.id}|" th:text="${recipe.name}"></a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<footer th:replace="~{fragments :: footer}"></footer>
 </body>
 </html>
